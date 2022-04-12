@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <ModalDialogScroll :modal="terms"/>
+    <ModalDialogScroll :modal="terms" v-on:changeModal="updateMdoal($event)"></ModalDialogScroll>
 </template>
 
 <script>
@@ -56,6 +56,11 @@ export default {
     },
     components: {
         ModalDialogScroll,
+    },
+    methods: {
+        updateModal: function(updatedModal) {
+            this.terms = updatedModal;
+        }
     }
 }
 </script>
