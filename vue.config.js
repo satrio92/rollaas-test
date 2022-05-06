@@ -1,7 +1,14 @@
 module.exports = {
-    configureWebpack: {
-      devServer: {
-        headers: { "Access-Control-Allow-Origin": "*" }
-      }
+    devServer: {
+        proxy: {
+            '^/users': {
+                target: 'https://rollaascafeapinodejs.herokuapp.com',
+                changeOrigin: true
+            },
+            '^/products': {
+                target: 'https://rollaascafeapinodejs.herokuapp.com',
+                changeOrigin: true
+            }
+        }
     }
-  };
+}
