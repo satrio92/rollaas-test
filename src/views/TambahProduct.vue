@@ -1,34 +1,45 @@
 <template>
     <div id="tambah-karyawan" class="font-poppins flex justify-center py-12 bg-base-200 bg-gray-100">
         <div class="md:w-1/3 px-10 py-10 bg-white shadow-lg rounded-xl">
-            <h1 class="text-2xl font-semibold text-green-700 text-center mb-6">Tambah Product</h1>
+            <h1 class="text-2xl font-semibold text-green-700 text-center mb-6">Tambah Karyawan</h1>
             <form class="flex flex-col gap-4" @submit.prevent>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500">
-                    <label for="nama" class="text-xs text-gray-500">Nama Product</label>
-                    <input type="text" name="nama" placeholder="Masukkan Nama Product..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.nama_lengkap">
+                    <label for="nama" class="text-xs text-gray-500">Nama Lengkap</label>
+                    <input type="text" name="nama" placeholder="Masukkan Nama ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.nama_lengkap">
                 </div>
-                <div v-if="preview" class="relative">
-                    <img :src="preview" alt="" class="w-full">
-                    <div class="bg-white w-8 h-8 rounded-full absolute top-2 right-2 flex justify-center items-center bg-opacity-80" @click="gambar='',preview=''">
-                        <i class="bi bi-x text-2xl"></i>
-                    </div>
-                </div>
-                <label for="foto" class="border-2 rounded-xl h-48 flex justify-center items-center" v-if="preview == ''">
-                    <div class="flex flex-col items-center gap-2">
-                        <i class="bi bi-upload text-green-700 text-6xl"></i>
-                        <p class="text-green-700">Silahkan upload foto</p>
-                    </div>
-                </label>
-                <input type="file" name="foto" id="foto" v-on:change="upload" hidden>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500">
-                    <label for="deskripsi" class="text-xs text-gray-500">Deskripsi</label>
-                    <textarea name="deskripsi" id="deskripsi" cols="30" rows="10" placeholder="Masukkan Dsekripsi ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal"></textarea>
-                    <!-- <input type="text" name="username" placeholder="Masukkan Username ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.username"> -->
+                    <label for="username" class="text-xs text-gray-500">Username</label>
+                    <input type="text" name="username" placeholder="Masukkan Username ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.username">
+                </div>
+                <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500">
+                    <label for="email" class="text-xs text-gray-500">Email</label>
+                    <input type="email" name="email" placeholder="Masukkan Email ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.email">
+                </div>
+                <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
+                    <label for="password" class="text-xs text-gray-500">Password</label>
+                    <input :type="[pass? 'text' : 'password']" name="password" placeholder="Masukkan Password ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.password">
+                    <i class="bi text-gray-700 absolute top-[35%] right-4 text-xl" :class="[pass? 'bi-eye' : 'bi-eye-slash']" @click="pass = !pass"></i>
+                </div>
+                <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
+                    <label for="contact" class="text-xs text-gray-500">Contact</label>
+                    <input type="text" name="contact" placeholder="Masukkan Contact ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.contact">
+                </div>
+                <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
+                    <label for="description" class="text-xs text-gray-500">Deskripsi</label>
+                    <textarea name="description" rows="5" placeholder="Masukkan Deskripsi ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.description"></textarea>
                 </div>
                 <div>
                     <button type="submit" class="bg-green-700 w-full py-3 font-semibold text-white rounded-md" @click="tambahuser">Tambah Karyawan</button>
                 </div>
             </form>
+            <div v-if="oke" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"></div>
+            <router-link to="/dashboard" v-if="oke" class="fixed inset-0 flex justify-center items-center w-full h-full" @click="oke = false">
+                <div class="w-[420px] h-[420px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center gap-6 justify-center">
+                    <i class="bi bi-check-circle text-9xl text-green-700"></i>
+                    <h3 class="text-2xl font-semibold text-center">Data Berhasil Ditambahkan</h3>
+                </div>
+            </router-link>
+            <div v-if="loading" class="fixed inset-0 bg-white overflow-y-auto h-full w-full flex justify-center items-center text-2xl font-bold">Loading...</div>
         </div>
     </div>
 </template>
@@ -42,27 +53,18 @@ export default {
     data() {
         return {
             pass: false,
-            product: {},
-            preview: '',
-            user: {}
+            user: {},
+            oke: false,
+            loading: false,
         }
     },
     methods: {
-        upload(event) {
-            this.product.gambar = event.target.files[0].name
-            this.preview = URL.createObjectURL(event.target.files[0])
-        },
         tambahuser() {
-            user.description = "Low Key"
-            user.contact = "08955557332",
-            user.user_role = "useronly",
-            user.keranjang_belanja = [ ],
-            user.daftar_pemesanan = [ ],
-            user.daftar_pemesanan_meja = [ ],
-            user.user_products_rating = [ ],
-            user.status_aktif = false,
-            axios.post('https://rollaascafeapinodejs.herokuapp.com/users', this.user)
-            .then(() => console.log(this.user))
+            this.user.user_role = "useronly",
+            this.user.status_aktif = true,
+            this.loading = true,
+            axios.post('/users', this.user)
+            .then(() => this.loading =  false, this.oke = true)
             .catch((error) => console.log("Error : ", error))
         }
     }
