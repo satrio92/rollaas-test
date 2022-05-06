@@ -37,7 +37,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('/products')
+        axios.get('https://rollaascafeapinodejs.herokuapp.com/products')
         .then((response) => this.setProduct(response.data))
         .catch((error) => console.log("Error : ", error))
     }

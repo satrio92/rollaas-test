@@ -95,13 +95,13 @@ export default {
         },
         deleteUser() {
             this.deleted = false;
-            axios.delete('/users/'+this.iddelete)
+            axios.delete('https://rollaascafeapinodejs.herokuapp.com/users/'+this.iddelete)
             .then(() => this.oke = true)
             .catch((error) => console.log("Error : ", error))
         }
     },
     mounted() {
-        axios.get('/users')
+        axios.get('https://rollaascafeapinodejs.herokuapp.com/users')
         .then((response) => this.setUsers(response.data))
         .catch((error) => console.log("Error : ", error))
     }
