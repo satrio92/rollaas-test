@@ -44,6 +44,7 @@ export default {
             pass: false,
             product: {},
             preview: '',
+            user: {}
         }
     },
     methods: {
