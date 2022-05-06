@@ -71,7 +71,7 @@
             sapiente et, itaque vero doloremque iste inventore numquam odio ullam
             unde? Ea quia omnis, similique nulla velit assumenda exercitationem,
             quis minima, quasi commodi voluptates culpa sunt iusto laboriosam
-            pariatur molestiae.
+            pariatur molestie.
           </p>
         </div>
       </div>
