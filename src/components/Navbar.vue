@@ -35,11 +35,15 @@
         <router-link to="/about">About</router-link>
         <hr class="line mt-2 bg-white h-[2px] hidden" />
       </li>
+      <li class="menu" v-if="user == 'employees' || user == 'owner'">
+        <router-link to="/dashboard">Dashboard</router-link>
+        <hr class="line mt-2 bg-white h-[2px] hidden" />
+      </li>
       <li class="flex gap-4 mt-4" v-if="session">
         <router-link
           to="/login"
           class="inline md:hidden border-2 border-green-700 py-3 px-5 text-green-700 text-2xl rounded-md transform hover:bg-green-700 hover:text-white active:translate-y-1"
-          >{{session}}</router-link
+          >login</router-link
         >
         <router-link
           to="/register"
@@ -62,7 +66,7 @@
     </div>
     <div class="flex gap-4 text-2xl" v-if="session">
         <router-link to="/keranjang"><i class="bi bi-cart"></i></router-link>
-        <i class="bi bi-person-circle"></i>
+        <router-link :to="'/profile/'+session"><i class="bi bi-person-circle"></i></router-link>
     </div>
     <!-- <div class="absolute w-32 h-48 bg-white right-0"></div> -->
   </div>
@@ -74,7 +78,9 @@ export default {
   data() {
     return {
       isOpen: false,
-      session: sessionStorage.getItem("login")
+      session: sessionStorage.getItem("login"),
+      user: sessionStorage.getItem("user"),
+      nama: sessionStorage.getItem("nama")
     };
   },
 };
