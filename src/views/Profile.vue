@@ -15,7 +15,7 @@
             <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between">
                 Ubah password <span class="text-3xl"><i class="bi bi-arrow-right-circle"></i></span>
             </div>
-            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between">
+            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between" @click="remove">
                 <span class="text-3xl"><i class="bi bi-arrow-left-circle"></i></span> Keluar 
             </div>
         </div>
@@ -40,6 +40,12 @@ export default {
     methods: {
         setUser(data) {
             this.user = data
+        },
+        remove() {
+            sessionStorage.remove("session")
+            sessionStorage.remove("user")
+            sessionStorage.remove("nama")
+            this.$router.push('/')
         }
     },
     mounted() {
