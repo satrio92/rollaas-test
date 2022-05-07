@@ -22,7 +22,7 @@
                 </div>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500">
                     <label for="stok" class="text-xs text-gray-500">Stok</label>
-                    <input type="email" name="stok" placeholder="Masukkan Stok ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model.number="product.stok">
+                    <input type="text" name="stok" placeholder="Masukkan Stok ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model.number="product.stok">
                 </div>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
                     <label for="description" class="text-xs text-gray-500">Deskripsi</label>
@@ -33,7 +33,7 @@
                 </div>
             </form>
             <div v-if="oke" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"></div>
-            <router-link to="/dashboard" v-if="oke" class="fixed inset-0 flex justify-center items-center w-full h-full" @click="oke = false">
+            <router-link to="/dashboard/product" v-if="oke" class="fixed inset-0 flex justify-center items-center w-full h-full" @click="oke = false">
                 <div class="w-[420px] h-[420px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center gap-6 justify-center">
                     <i class="bi bi-check-circle text-9xl text-green-700"></i>
                     <h3 class="text-2xl font-semibold text-center">Data Berhasil Ditambahkan</h3>

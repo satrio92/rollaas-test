@@ -17,13 +17,13 @@
                 </div>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
                     <label for="password" class="text-xs text-gray-500">Password</label>
-                    <input :type="[pass? 'text' : 'password']" name="password" placeholder="Masukkan Password ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="password">
+                    <input :type="[pass? 'text' : 'password']" name="password" placeholder="Masukkan Password ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="user.password">
                     <i class="bi text-gray-700 absolute top-[35%] right-4 text-xl" :class="[pass? 'bi-eye' : 'bi-eye-slash']" @click="pass = !pass"></i>
                 </div>
                 <div class="flex flex-col bg-white w-full px-4 py-2 gap-2 rounded-md border-[1px] border-gray-500 relative">
                     <label for="password" class="text-xs text-gray-500">Konfirmasi Password</label>
                     <input :type="[confpass? 'text' : 'password']" name="password" placeholder="Masukkan Ulang Password ..." class="w-full outline-none text-gray-700 font-medium placeholder-shown:font-normal" v-model="confirm">
-                    <i class="bi text-gray-700 absolute top-[35%] right-4 text-xl" :class="[confpass? 'bi-eye' : 'bi-eye-slash']" @click="confpass = !confpass"></i>
+                    <i class="bi text-gray-700 absolute top-[35%] right-4 text-xl" :class="[confpass? 'bi-eye' : 'bi-eye-slash']" ></i>
                 </div>
                 <div class="flex items-center gap-2">
                     <input type="checkbox" name="agree" id="remember" class="w-3 h-3">
@@ -44,6 +44,7 @@
 <script>
 
 import ModalDialogScroll from '@/components/ModalDialogScroll.vue';
+import axios from 'axios';
 
 export default {
     name: 'Registration',
@@ -68,6 +69,9 @@ export default {
             this.user.user_role = "useronly",
             this.user.status_aktif = true,
             this.loading = true
+            axios.post('https://rollaascafeapinodejs.herokuapp.com/users', this.user)
+            .then(() => this.loading =  false, this.oke = true)
+            .catch((error) => console.log("Error : ", error))
         }
     }
 }
