@@ -9,13 +9,13 @@
                     <p class="text-xl font-semibold">{{user.email}}</p>
                 </div>
             </div>
-            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between">
+            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between cursor-pointer">
                 Ubah data diri <span class="text-3xl"><i class="bi bi-arrow-right-circle"></i></span>
             </div>
-            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between">
+            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between cursor-pointer">
                 Ubah password <span class="text-3xl"><i class="bi bi-arrow-right-circle"></i></span>
             </div>
-            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between" @click="remove">
+            <div class="bg-white px-8 py-8 shadow-md w-full rounded-lg flex gap-8 items-center text-2xl font-semibold justify-between cursor-pointer" @click="remove">
                 <span class="text-3xl"><i class="bi bi-arrow-left-circle"></i></span> Keluar 
             </div>
         </div>
@@ -42,10 +42,10 @@ export default {
             this.user = data
         },
         remove() {
-            sessionStorage.remove("session")
-            sessionStorage.remove("user")
-            sessionStorage.remove("nama")
-            this.$router.push('/')
+            sessionStorage.removeItem("login")
+            sessionStorage.removeItem("user")
+            sessionStorage.removeItem("nama")
+            this.$router.push({ name: 'Home' })
         }
     },
     mounted() {
